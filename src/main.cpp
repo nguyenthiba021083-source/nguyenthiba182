@@ -10,9 +10,10 @@ class $modify(MyMenuLayer, MenuLayer) {
 
         auto winSize = CCDirector::sharedDirector()->getWinSize();
         
+        // Tạo nút bấm kích hoạt Menu AI
         auto sprite = CCSprite::createWithSpriteFrameName("GJ_plusBtn_001.png");
         auto btn = CCMenuItemSpriteExtra::create(
-            sprite, this, menu_selector(AIMenu::openMenu)
+            sprite, this, menu_selector(MyMenuLayer::onAIButtonClick)
         );
 
         auto menu = CCMenu::create(btn, nullptr);
@@ -20,5 +21,15 @@ class $modify(MyMenuLayer, MenuLayer) {
         this->addChild(menu);
 
         return true;
+    }
+
+    // Tạo hàm xử lý nút bấm ngay tại đây để tránh lỗi biên dịch
+    void onAIButtonClick(CCObject* sender) {
+        auto scene = CCScene::create();
+        auto layer = AIMenu::create();
+        if (layer) {
+            scene->addChild(layer);
+            CCDirector::sharedDirector()->pushScene(CCTransitionFade::create(0.5f, scene));
+        }
     }
 };
