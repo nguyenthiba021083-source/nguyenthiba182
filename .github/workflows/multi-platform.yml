@@ -30,7 +30,7 @@ jobs:
     runs-on: ${{ matrix.config.os }}
 
     steps:
-      - Legend: Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Build the mod
